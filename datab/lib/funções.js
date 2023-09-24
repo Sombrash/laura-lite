@@ -1,17 +1,16 @@
 const cfonts = require("cfonts")
-const axios = require("axios")
+const fetch = require("node-fetch")
 const mimetype = require("mime-types")
 const _ = require("lodash")
 
-const getBuffer = async (url, body = {}) => {
-let response = await axios.get(url, body, {
-  headers: {
-    "DNT": 1,
-    "Upgrade-Insecure-Request": 1
-  },
-  responseType: "arraybuffer"
+const getBuffer = async (url) => {
+let response = await fetch(url, {
+  method: "get",
+  body: null,
 })
-  return response.data
+
+let media = await response.buffer()
+return media
 }
 
 const banner = cfonts.render("Laura", {
